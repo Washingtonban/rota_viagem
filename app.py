@@ -1,6 +1,7 @@
 import flask
 from flask import jsonify, request
 
+
 from model.data_connect import *
 
 
@@ -12,6 +13,7 @@ app.config["DEBUG"] = True
 def update():
     json_response = request.get_json()
     return jsonify(json_response)
+
 
 
 @app.route("/api/route", methods=["POST"])
