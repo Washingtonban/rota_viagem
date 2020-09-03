@@ -1,11 +1,12 @@
 class RouteSearch:
-    def __init__(self):
 
-        with open('input-file.csv', 'r') as file:
+    def route_search(self, origem, destino):
+
+        self.origem = origem
+        self.destino = destino
+
+        with open('./data/input-file.csv', 'r') as file:
             self.dados = [f.rstrip().split(',') for f in file]
-
-        self.origem = "GRU"
-        self.destino = "CDG"
 
         self.routes = []
         self.temp = []
@@ -14,22 +15,25 @@ class RouteSearch:
         self.min_index = -1
         self.sum_temp = 0.0
 
-        origin_start = [x for x in self.dados if x[0] == self.origem]
+        origin_start = [x for x in self.dados if x[0] == origem]
 
         for route in origin_start:
-            if route[1] == self.destino:
-                self.index = self.index + 1
+            if route[1] == destino:
+                self.index += 1
                 if(self.min_value == 0.0 or float(route[2]) < self.min_value):
                     self.min_value = float(route[2])
                     self.min_index = self.index
-                self.routes.append(route)
+                    self.routes.extend(route)
             else:
                 self.sum_temp = self.sum_temp + float(route[2])
-                self.temp.append(route)
+                self.temp.extend(route)
                 self.till_search(route[1])
 
-        print(self.routes)
-        print(self.routes[self.min_index])
+        prices_routes = self.dict_with_routes()
+        better_price = min(prices_routes)
+        route_better_price = prices_routes[better_price]
+
+        return better_price, route_better_price
 
     def till_search(self, leave_at):
 
@@ -42,7 +46,7 @@ class RouteSearch:
             for d in self.dados:
                 if d[0] == ori and d[1] == des:
                     self.sum_temp = self.sum_temp + float(d[2])
-                    self.temp.append(d)
+                    self.temp.extend(d)
                     if d[1] == self.destino:
                         self.index_min_value()
                         self.routes.append(self.temp)
@@ -57,3 +61,27 @@ class RouteSearch:
             self.min_value = self.sum_temp
             self.sum_temp = 0.0
             self.min_index = self.index
+
+
+    def set_result(self, route):
+        cheaper_route = route
+
+        origins = cheaper_route[0::3]
+        destin = cheaper_route[1::3]
+        amount = cheaper_route[2::3]
+        origins.append(destin[-1])
+
+        total_amount = 0
+        for price in amount:
+            total_amount += int(price)
+
+        return origins, total_amount
+
+    def dict_with_routes(self):
+
+        all_routes = {}
+        for route in self.routes:
+            list_route, total_amount = self.set_result(route)
+            all_routes[total_amount] = list_route
+
+        return all_routes
