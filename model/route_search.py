@@ -1,13 +1,13 @@
+
+from model.data_connect import DataConnect
+
+
 class RouteSearch:
 
-    def route_search(self, origem, destino):
-
+    def __init__(self, origem, destino):
         self.origem = origem
         self.destino = destino
-
-        with open('./data/input-file.csv', 'r') as file:
-            self.dados = [f.rstrip().split(',') for f in file]
-
+        self.dados = [f for f in DataConnect().readCsv('./data/input-file.csv')]
         self.routes = []
         self.temp = []
         self.index = -1
@@ -15,17 +15,20 @@ class RouteSearch:
         self.min_index = -1
         self.sum_temp = 0.0
 
-        origin_start = [x for x in self.dados if x[0] == origem]
+    def route_search(self):
+
+        origin_start = [x for x in self.dados if x[0] == self.origem]
 
         for route in origin_start:
-            if route[1] == destino:
+            if route[1] == self.destino:
                 self.index += 1
-                if(self.min_value == 0.0 or float(route[2]) < self.min_value):
+                if (self.min_value == 0.0 or float(route[2]) < self.min_value):
                     self.min_value = float(route[2])
                     self.min_index = self.index
-                    self.routes.extend(route)
+                    self.routes.append(route)
+
             else:
-                self.sum_temp = self.sum_temp + float(route[2])
+                self.sum_temp += float(route[2])
                 self.temp.extend(route)
                 self.till_search(route[1])
 
@@ -57,15 +60,17 @@ class RouteSearch:
 
     def index_min_value(self):
         self.index = self.index + 1
-        if(self.min_value == 0.0 or self.sum_temp < self.min_value):
+
+        if (self.min_value == 0.0 or self.sum_temp < self.min_value):
+
             self.min_value = self.sum_temp
             self.sum_temp = 0.0
             self.min_index = self.index
 
 
     def set_result(self, route):
-        cheaper_route = route
 
+        cheaper_route = route
         origins = cheaper_route[0::3]
         destin = cheaper_route[1::3]
         amount = cheaper_route[2::3]

@@ -1,7 +1,9 @@
 import flask
 from flask import jsonify, request
+
 from model.route_search import RouteSearch
 from model.data_connect import DataConnect
+
 
 
 app = flask.Flask(__name__)
@@ -17,6 +19,7 @@ def update():
         return jsonify({"message": "New route successfully created"})
     else:
         return jsonify({"message": "New route fail created"})
+
 
 
 

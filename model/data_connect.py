@@ -13,7 +13,6 @@ class DataConnect:
         with open(data) as csv_file:
             route_list = []
             csv_reader = csv.reader(csv_file, delimiter=',')
-            csv_reader.__next__()
             for row in csv_reader:
                 route_list.append(row)
         return route_list
@@ -52,3 +51,15 @@ class DataConnect:
                 return True
 
         return False
+
+    def origens_destinos(self):
+        origens = []
+        destinos = []
+
+        list = self.readCsv('./data/input-file.csv')
+
+        for item in list:
+            origens.append(item[0])
+            destinos.append(item[1])
+
+        return origens, destinos
