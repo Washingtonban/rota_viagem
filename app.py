@@ -10,10 +10,13 @@ app.config["DEBUG"] = True
 
 @app.route("/api/update", methods=["POST"])
 def update():
-    model = DataConnect()
+    model_update = DataConnect()
     json_response = request.get_json()
-    result = model.updateCsv(data=json_response['data'], line=json_response['line'])
-    return jsonify({"message": "New route successfully created"})
+    if len(json_response['line']) == 3:
+        model_update.updateCsv(data=json_response['data'], line=json_response['line'])
+        return jsonify({"message": "New route successfully created"})
+    else:
+        return jsonify({"message": "New route fail created"})
 
 
 
