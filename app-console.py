@@ -64,9 +64,18 @@ class AppConsole():
         print('#              CADASTRO DE ROTA DE VIAGEM                  #')
         print('############################################################')
         print()
-        new_route = input('Digite uma nova rota, ex: GRU-CFT-100')
-        print(new_route)
-
+        new_route = input('Digite uma nova rota, ex: GRU-CFT-100: ')
+        if new_route[3] == '-' and new_route[7] == '-' and len(new_route) >= 9 and len(new_route) <= 11:
+            origem = new_route[:3]
+            destino = new_route[4:7]
+            custo = new_route[8:]
+            line = [origem, destino, custo]
+            model_update = DataConnect()
+            data = './data/input-file.csv'
+            model_update.updateCsv(data=data, line=line)
+        else:
+            print('Rota digitada de forma incorreta, tente novamente')
+            AppConsole()
 
 
 if __name__ == '__main__':
