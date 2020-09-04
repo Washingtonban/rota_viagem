@@ -1,3 +1,4 @@
+
 from model.data_connect import DataConnect
 
 
@@ -54,17 +55,18 @@ class RouteSearch:
                         self.routes.append(self.temp)
                         self.temp = []
                         break
-
-
                     else:
                         self.till_search(d[1])
 
     def index_min_value(self):
         self.index = self.index + 1
+
         if (self.min_value == 0.0 or self.sum_temp < self.min_value):
+
             self.min_value = self.sum_temp
             self.sum_temp = 0.0
             self.min_index = self.index
+
 
     def set_result(self, route):
 
