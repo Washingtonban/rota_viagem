@@ -3,6 +3,7 @@ from flask import jsonify, request
 from model.route_search import RouteSearch
 from model.data_connect import DataConnect
 
+
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -18,6 +19,7 @@ def update():
 
 @app.route("/api/route", methods=["POST"])
 def route():
+
     model = RouteSearch()
     json_response = request.get_json()
     result = model.route_search(origem=json_response['origem'], destino=json_response['destino'])
