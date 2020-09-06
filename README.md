@@ -72,4 +72,10 @@ Será feito uma consulta via terminal, seguindo o exemplo:
 
 `GRU-CDG`
 
+## Executar teste unitario - pytest
+
+Na pasta raiz do projeto execute:
+
+`pytest test/test_api_flask.py`
+
 ## SonarCloud validation [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Washingtonban_rota_viagem&metric=alert_status)](https://sonarcloud.io/dashboard?id=Washingtonban_rota_viagem)
