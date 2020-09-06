@@ -15,7 +15,11 @@ class RouteSearch:
         self.min_index = -1
         self.sum_temp = 0.0
 
-    def route_search(self):
+    def route_search(self) -> tuple:
+        '''
+        method that finds the cheapest route among all possibilities
+        :return: tuple with cheapest route and price
+        '''
 
         origin_start = [x for x in self.dados if x[0] == self.origem]
 
@@ -68,8 +72,13 @@ class RouteSearch:
             self.min_index = self.index
 
 
-    def set_result(self, route):
-
+    def set_result(self, route) -> tuple:
+        '''
+        method receives a list representing a route and transforms and returns a tuple with a list, origin and
+        destination, and the price
+        :param route: list with [origin, destiny, price]
+        :return: tuple ([origin, destiny], price)
+        '''
         cheaper_route = route
         origins = cheaper_route[0::3]
         destin = cheaper_route[1::3]
@@ -82,8 +91,12 @@ class RouteSearch:
 
         return origins, total_amount
 
-    def dict_with_routes(self):
-
+    def dict_with_routes(self) -> dict:
+        '''
+        method that organizes routes in dictionaries, key = price and value = list with origin,
+        destination and all scales
+        :return: dict
+        '''
         all_routes = {}
         for route in self.routes:
             list_route, total_amount = self.set_result(route)

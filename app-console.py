@@ -2,12 +2,18 @@ from model.data_connect import DataConnect
 from model.route_search import RouteSearch
 
 
-class AppConsole():
+class AppConsole:
 
     def __init__(self):
         self.introApp()
 
     def introApp(self):
+
+        '''
+        Function that starts the application and has the navigation menu
+        :return:
+        '''
+
         print('############################################################')
         print('#           ESCOLHA UMA OPÇÃO PARA CONTINUAR               #')
         print('############################################################')
@@ -29,6 +35,12 @@ class AppConsole():
 
 
     def search_voo(self):
+
+        '''
+        function that executes the query at the base and prints the cheapest route on the console
+        :return:
+        '''
+
         print('############################################################')
         print('#             APLICATIVO DE ROTA DE VIAGEM                 #')
         print('############################################################')
@@ -60,6 +72,12 @@ class AppConsole():
             AppConsole()
 
     def update_voo(self):
+
+        '''
+        function that writes new routes to the database
+        :return:
+        '''
+
         print('############################################################')
         print('#              CADASTRO DE ROTA DE VIAGEM                  #')
         print('############################################################')
