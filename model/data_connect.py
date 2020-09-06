@@ -29,10 +29,14 @@ class DataConnect:
         with open(rf'{data}', 'a') as file:
             writer = csv.writer(file)
             if not self.lineValidator(data, line):
+                msg = 'route successfully registered'
                 writer.writerow(line)
-                print('route successfully registered')
+                print(msg)
+                return msg
             else:
-                print('This route has already been registered')
+                msg = 'This route has already been registered'
+                print(msg)
+                return msg
 
 
     def lineValidator(self, data:str, line:list) -> bool:
