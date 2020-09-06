@@ -25,10 +25,9 @@ def update():
 
 @app.route("/api/route", methods=["POST"])
 def route():
-
-    model = RouteSearch()
     json_response = request.get_json()
-    result = model.route_search(origem=json_response['origem'], destino=json_response['destino'])
+    model = RouteSearch(origem=json_response['origem'], destino=json_response['destino'])
+    result = model.route_search()
 
     final = ''
     for item in result[1]:
